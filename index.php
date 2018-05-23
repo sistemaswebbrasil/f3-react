@@ -1,8 +1,11 @@
 <?php
 
-require 'vendor/autoload.php';
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Authorization, Origin, Cache-Control, X-Requested-With, Content-Type, Access-Control-Allow-Origin');
+header('Access-Control-Allow-Methods: *');
+header('Content-type: application/json');
 
-use Helpers\Responses;
+require 'vendor/autoload.php';
 
 $f3 = \Base::instance();
 
@@ -11,28 +14,43 @@ if ((float)PCRE_VERSION<7.9) {
     trigger_error('PCRE version is out of date');
 }
 
+/**
+ * Configurações
+ */
 $f3->config('config.ini');
 
-$f3->set('AUTOLOAD', 'app/');
 
+/**
+ * Rota de login
+ */
+$f3->route('POST /api/login', 'Controller\AuthController->login');
 
+/**
+ * Rota genérica
+ * Ex: http://apifat.com/f3-raw/api/users/list executa app\Controller\users.php método list
+ * * Manter o nome do arquivo em minusculo para coincidir com a url do navegador
+ */
+$f3->route('GET|POST|PUT|DELETE /api/@controller/@action', 'Controller\@controller->@action');
+
+/**
+ * Controle de erro
+ */
 $f3->set(
 'ONERROR',
     function ($f3) {
-        Responses::error($f3->get('ERROR.status'), $f3->get('ERROR.code'), $f3->get('DEBUG')== 3 ? $f3->get('ERROR'):'');
+        Helpers\Responses::error($f3->get('ERROR.status'), $f3->get('ERROR.code'), $f3->get('DEBUG')== 3 ? $f3->get('ERROR'):'');
     }
 );
 
-
-$f3->route('POST /login', 'Controller\AuthController->login');
-$f3->route('GET  /users', 'Controller\UserController->index');
-
-
+/**
+ * Rota padrão
+ */
 $f3->route(
     'GET /',
     function ($f3) {
         echo \View::instance()->render('index.html');
     }
 );
+
 
 $f3->run();

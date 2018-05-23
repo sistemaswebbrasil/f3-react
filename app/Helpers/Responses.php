@@ -2,6 +2,9 @@
 
 namespace Helpers;
 
+/**
+ * Exibe o retorno em json e com controle do status
+ */
 class Responses
 {
     public static function success($data, $code = 200)
@@ -36,7 +39,7 @@ class Responses
 
     protected function headerStatus($code)
     {
-        switch ($variable) {
+        switch ($code) {
             case 200:
                 return '200 OK';
                 break;

@@ -4,7 +4,11 @@ namespace Controller;
 
 use Firebase\JWT\JWT;
 use Helpers\Responses;
+use Controller\Base\BaseController;
 
+/**
+ * Controle de autenticação
+ */
 class AuthController extends BaseController
 {
     public function login()

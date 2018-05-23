@@ -1,9 +1,14 @@
 <?php
-namespace Controller;
+
+namespace Controller\Base;
 
 use \Firebase\JWT\JWT;
 use Helpers\Responses;
+use Controller\Base\BaseController;
 
+/**
+ * Controle de autenticação genérico , para não deixar mostar a págian se não logado
+ */
 class BaseAuthController extends BaseController
 {
     public function getAuthorizationHeader()

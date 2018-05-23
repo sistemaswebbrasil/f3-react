@@ -1,10 +1,13 @@
 <?php
 
-namespace Controller;
+namespace Controller\Base;
 
 use Helpers\Responses;
 use DB\SQL;
 
+/**
+ * Controller genperico para servir uma funcionalidade básica para os controller que extender
+ */
 class BaseController
 {
     protected $f3;
