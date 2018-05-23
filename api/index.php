@@ -30,7 +30,7 @@ $f3->route('POST /api/login', 'Controller\AuthController->login');
  * Ex: http://apifat.com/f3-raw/api/users/list executa app\Controller\users.php método list
  * * Manter o nome do arquivo em minusculo para coincidir com a url do navegador
  */
-$f3->route('GET|POST|PUT|DELETE /api/@controller/@action', 'Controller\@controller->@action');
+$f3->route('GET|POST|PUT|DELETE /@controller/@action', 'Controller\@controller->@action');
 
 /**
  * Controle de erro
