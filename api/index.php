@@ -5,9 +5,11 @@ header('Access-Control-Allow-Headers: Authorization, Origin, Cache-Control, X-Re
 header('Access-Control-Allow-Methods: *');
 header('Content-type: application/json');
 
-require 'vendor/autoload.php';
 
+require 'vendor/autoload.php';
 $f3 = \Base::instance();
+
+$f3->set('CORS.x', '');
 
 $f3->set('DEBUG', 1);
 if ((float)PCRE_VERSION<7.9) {
@@ -19,11 +21,10 @@ if ((float)PCRE_VERSION<7.9) {
  */
 $f3->config('config.ini');
 
-
 /**
  * Rota de login
  */
-$f3->route('POST /api/login', 'Controller\AuthController->login');
+$f3->route('POST /login', 'Controller\AuthController->login');
 
 /**
  * Rota genérica
