@@ -3,10 +3,12 @@ import { routerMiddleware, routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import auth from './auth';
+import users from './users'
 
 const rootReducer = combineReducers({
     router: routerReducer,
-    auth
+    auth,
+    users
 });
 
 export const history = createHistory();

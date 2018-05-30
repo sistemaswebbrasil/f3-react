@@ -3,8 +3,9 @@
 require 'vendor/autoload.php';
 $f3 = \Base::instance();
 
-$f3->set('CORS.headers', 'CONTENT-TYPE');
 $f3->set('CORS.origin', '*');
+$f3->set('CORS.headers', '*');
+$f3->set('CORS.methods', 'GET,POST,PUT,DELETE,OPTIONS');
 
 $f3->set('DEBUG', 1);
 if ((float)PCRE_VERSION<7.9) {
@@ -26,7 +27,7 @@ $f3->route('POST /login', 'Controller\AuthController->login');
  * Ex: http://apifat.com/f3-raw/api/users/list executa app\Controller\users.php método list
  * * Manter o nome do arquivo em minusculo para coincidir com a url do navegador
  */
-$f3->route('GET|POST|PUT|DELETE /@controller/@action', 'Controller\@controller->@action');
+$f3->route('GET|POST|PUT|DELETE /@controller/@action/@params', 'Controller\@controller->@action');
 
 /**
  * Controle de erro
