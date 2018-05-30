@@ -5,16 +5,16 @@ import Login from '../Login';
 import Footer from './Footer';
 import Header from './Header';
 import NotFound from './NotFound';
+import PrivateRoute from './PrivateRoute';
 const App = () => (
     <div className="App">
         <Header />
         <main role="main" className="container">
             <Switch>
-                <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
+                <PrivateRoute path="/" exact component={Home} />
                 <Route component={NotFound} />
             </Switch>
-
         </main>
         <Footer/>
     </div>

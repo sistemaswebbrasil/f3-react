@@ -1,17 +1,25 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const NavLinks = () => {
-  return (
-      <ul className="navbar-nav mr-auto">
-          <li className={window.location.pathname === '/' ? 'nav-item active' : 'nav-item'} >
-              <Link className="nav-link" to="/">Home</Link>
-          </li>
-          <li className={window.location.pathname === '/login' ? 'nav-item active' : 'nav-item'} >
-              <Link className="nav-link" to="/login">Login</Link>
-          </li>
-      </ul>
-  )
+const NavLinks = props => {
+    return (
+        <ul className="navbar-nav mr-auto">
+            <NavLink
+                to="/"
+                className="nav-link"
+                exact
+                activeClassName="nav-item active"
+            >Home </NavLink>
+            {!props.logged &&
+            <NavLink
+                to="/login"
+                exact
+                className="nav-link"
+                activeClassName="nav-item active"
+            >Login</NavLink>
+            }
+        </ul>
+    )
 }
 
 export default NavLinks
