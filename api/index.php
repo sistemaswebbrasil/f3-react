@@ -1,15 +1,10 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: Authorization, Origin, Cache-Control, X-Requested-With, Content-Type, Access-Control-Allow-Origin');
-header('Access-Control-Allow-Methods: *');
-header('Content-type: application/json');
-
-
 require 'vendor/autoload.php';
 $f3 = \Base::instance();
 
-$f3->set('CORS.x', '');
+$f3->set('CORS.headers', 'CONTENT-TYPE');
+$f3->set('CORS.origin', '*');
 
 $f3->set('DEBUG', 1);
 if ((float)PCRE_VERSION<7.9) {
@@ -52,6 +47,5 @@ $f3->route(
         echo \View::instance()->render('index.html');
     }
 );
-
 
 $f3->run();
