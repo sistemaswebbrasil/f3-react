@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { login } from '../Redux/auth';
 import loading from '../images/loading.svg';
+import { push } from 'react-router-redux';
 // import loading from '../images/react.svg';
 export class Login extends Component {
 
@@ -33,20 +34,19 @@ export class Login extends Component {
     return (
         <form onSubmit={this.handleSubmit}>
             <h1>Entrar no sistema</h1>
-
             <h2>
                 {/* {JSON.stringify(this.props.user)} */}
             </h2>
-
             {this.props.logged &&
                 <div className="alert alert-success" role="alert">
                     <h4 className="alert-heading">Sucesso!</h4>
                     <p>Login efetuado com sucesso</p>
                     <hr />
-                    <p className="mb-0">{this.props.user}</p>
+                <p className="mb-0">{this.props.user.name}</p>
+                <img src={loading} className="rounded mx-auto d-block" alt="Carregando" />
+                {setTimeout(() => {this.props.changePage()}, 3000)}
                 </div>
             }
-
             {this.props.error &&
                 <div className="alert alert-danger" role="alert">
                     <h4 className="alert-heading">Erro!</h4>
@@ -55,51 +55,50 @@ export class Login extends Component {
                     <p className="mb-0">{this.props.error}</p>
                 </div>
             }
-
-            <div className="form-group">
-                <label htmlFor="exampleInputEmail1">Usuário</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    name="username"
-                    aria-describedby="emailHelp"
-                    placeholder="Nome de usuário"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                    disabled={this.props.loggingIn}
-                />
+            {!this.props.logged &&
+            <div>
+                <div className="form-group">
+                    <label htmlFor="exampleInputEmail1">Usuário</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="username"
+                        aria-describedby="emailHelp"
+                        placeholder="Nome de usuário"
+                        value={this.state.username}
+                        onChange={this.handleChange}
+                        disabled={this.props.loggingIn}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleInputPassword1">Senha</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        name="password"
+                        placeholder="Password"
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                        disabled={this.props.loggingIn}
+                    />
+                </div>
+                {
+                    this.props.loggingIn &&
+                    <img src={loading} className="rounded mx-auto d-block" alt="Carregando" />
+                }
+                <button type="submit" className="btn btn-primary" disabled={this.props.loggingIn}>Entrar</button>
             </div>
-            <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Senha</label>
-                <input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    disabled={this.props.loggingIn}
-                />
-            </div>
-            {
-                this.props.loggingIn &&
-                <img src={loading} className="rounded mx-auto d-block" alt="Carregando" />
             }
 
-
-            <button type="submit" className="btn btn-primary" disabled={this.props.loggingIn}>Entrar</button>
         </form>
     )
   }
 }
 
-
-
 const mapStateToProps = state => (
-
     {
-
-    user: state.auth,
+    auth: state.auth,
+    user: state.auth.user,
     loggingIn: state.auth.loggingIn ,
     logged: state.auth.logged,
     error: state.auth.error
@@ -108,7 +107,8 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch =>
     bindActionCreators(
         {
-            login
+            login,
+            changePage: () => push('/')
         },
         dispatch
     );
