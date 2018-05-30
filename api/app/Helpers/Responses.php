@@ -9,7 +9,6 @@ class Responses
 {
     public static function success($data, $code = 200)
     {
-        header_remove();
         http_response_code($code);
         header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
         header('Content-Type: application/json');
@@ -23,7 +22,6 @@ class Responses
 
     public static function error($message = 'Erro no servidor PHP', $code = 500, $data = [])
     {
-        header_remove();
         http_response_code($code);
         header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
         header('Content-Type: application/json');
