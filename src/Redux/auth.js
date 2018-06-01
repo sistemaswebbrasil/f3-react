@@ -119,6 +119,7 @@ function isExpired() {
         if (jwtDecode(usr.token).exp > new Date().getTime() / 1000) {
             return false;
         }
+        return true;
     } catch (error) {
         return true;
     }

@@ -33,7 +33,7 @@ const List = (props) => {
                                   <td>{item.username}</td>
                                   <td>{item.email}</td>
                                   <td>
-                                  <Link to={`user/${item.id}/show`}>Show</Link>
+                                  <Link to={`users/${item.id}/show`}>Show</Link>
                                  </td>
                               </tr>
                           ))}

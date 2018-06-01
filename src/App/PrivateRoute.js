@@ -6,10 +6,11 @@ function isExpired(user){
     try {
         let usr = JSON.parse(localStorage.getItem('user'));
         if (jwtDecode(usr.token).exp > new Date().getTime() / 1000) {
-            return true;
+            return false;
         }
+        return true;
     } catch (error) {
-        return false;
+        return true;
     }
 }
 
@@ -19,8 +20,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         render={props => (
             isExpired()
                 ?
+                <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+                :
                 <Component {...props} />
-                : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
         )}
     />
 );

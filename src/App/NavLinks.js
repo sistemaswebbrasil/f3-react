@@ -18,7 +18,6 @@ const NavLinks = props => {
             <NavLink
                 to="/users"
                 className="nav-link"
-                exact
                 activeClassName="nav-item active"
             >Users
                 </NavLink>

@@ -100,13 +100,15 @@ export const show = (id) => {
                 payload: data
             });
         }).catch(function (error) {
-            let { message } = error;
+            let { message,response } = error;
+            //debugger
             dispatch({
                 type: SHOW_FAILURE,
-                payload: message
+                payload: response.data.message ? JSON.stringify(response.data.message, ' ',2) : message
             });
         });
     }
 }
+
 
 
